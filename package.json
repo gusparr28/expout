@@ -1,11 +1,23 @@
 {
   "name": "expout",
-  "module": "server.ts",
+  "module": "server/index.ts",
   "type": "module",
+  "scripts": {
+    "start": "bun src/index.ts",
+    "dev": "bun --watch src/index.ts",
+    "check": "bunx @biomejs/biome check --apply *"
+  },
   "devDependencies": {
+    "@biomejs/biome": "1.7.2",
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@hono/zod-validator": "^0.2.1",
+    "biome": "",
+    "hono": "^4.3.2",
+    "zod": "^3.23.6"
   }
 }
