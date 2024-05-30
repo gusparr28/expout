@@ -23,7 +23,7 @@ const expenses: Expense[] = [
 	{
 		id: 2,
 		title: "Gas payment",
-		amount: 123,
+		amount: 129,
 	},
 	{
 		id: 3,
@@ -75,6 +75,15 @@ expensesRoute.get("/:id{[0-9]+}", (c) => {
 	return c.json({
 		data: {
 			expense,
+		},
+	});
+});
+
+expensesRoute.get("/total-spent", (c) => {
+	const totalSpent = expenses.reduce((a, b) => a + b.amount, 0);
+	return c.json({
+		data: {
+			totalSpent,
 		},
 	});
 });

@@ -1,29 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
+
+const requestTotalSpent = async () => {
+	try {
+		const request = await fetch("/api/expenses/total-spent", {
+			method: "GET",
+		});
+		const { data } = await request.json();
+
+		console.log("data", JSON.stringify(data, null, 2));
+
+		return data.totalSpent;
+	} catch (error) {
+		console.error("An error has occurred", error);
+	}
+};
 
 function App() {
-	const [count, setCount] = useState(0);
+	const [totalSpent, setTotalSpent] = useState(0);
+
+	useEffect(() => {
+		(async () => {
+			const totalSpentAPI = await requestTotalSpent();
+			setTotalSpent(totalSpentAPI);
+		})();
+	}, []);
 
 	return (
-		<>
-			<div className="flex flex-col">
-				<button
-					className="bg-red-800 hover:bg-red-300"
-					onClick={() => setCount((count) => count + 1)}
-					type="button"
-				>
-					up
-				</button>
-				<button
-					className="bg-slate-600"
-					onClick={() => setCount((count) => count - 1)}
-					type="button"
-				>
-					down
-				</button>
-				<p>{count}</p>
-			</div>
-		</>
+		<Card className="w-[350px] m-auto">
+			<CardHeader>
+				<CardTitle>Total Spent</CardTitle>
+				<CardDescription>The total amount you've spent</CardDescription>
+			</CardHeader>
+			<CardContent>{totalSpent}</CardContent>
+		</Card>
 	);
 }
 
