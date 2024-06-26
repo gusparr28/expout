@@ -3,7 +3,7 @@
   "module": "server/index.ts",
   "type": "module",
   "scripts": {
-    "start": "bun src/index.ts",
+    "start": "bun server/src/index.ts",
     "dev": "bun --watch src/index.ts",
     "check": "bunx @biomejs/biome check --apply *"
   },
